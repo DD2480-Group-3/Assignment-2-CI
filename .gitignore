@@ -22,3 +22,6 @@ gradle-app.setting
 
 #Smeeclient config
 SmeeConfig.js
+
+#Ignore node_modules
+node_modules
