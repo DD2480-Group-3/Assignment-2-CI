@@ -7,6 +7,7 @@
 
 plugins {
     id 'java'    
+    id 'application'
 }
 
 group 'se.DD2480Group3'
@@ -19,7 +20,7 @@ repositories {
 sourceSets{
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src/se/DD2480Group3/assignment2']
         }
     }
     /* uncomment if you have junit set up*/
@@ -38,6 +39,12 @@ dependencies {
       implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
       compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
+
+application {
+    /* to compile and run */ 
+   mainClassName = 'ContinuousIntegrationServer' 
+}
+
 
 /* uncomment if you have junit set up*/
 //test {
