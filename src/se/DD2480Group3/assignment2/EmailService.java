@@ -7,16 +7,15 @@ public class EmailService {
 
   private String to;
   private String host;
+  private static final String USER = "testemail1232456789@gmail.com";
+  private static final String PASS = "ttni qdwf mdgc rdyq";
+  private Session sesh;
 
   public EmailService(String to) {
     this.to = to;
     this.host = "smtp.gmail.com";
-  }
 
-  String sendMail(String text) {
     Properties properties = System.getProperties();
-    final String user = "testemail1232456789@gmail.com";
-    final String pass = "ttni qdwf mdgc rdyq";
 
     properties.put("mail.smtp.starttls.enable", "true");
 
@@ -25,22 +24,29 @@ public class EmailService {
     properties.put("mail.smtp.auth", "true");
     properties.put("mail.debug", "true");
 
-    Session session = Session.getDefaultInstance(
-      properties,
-      new javax.mail.Authenticator() {
-        protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(user, pass);
+    this.sesh =
+      Session.getDefaultInstance(
+        properties,
+        new javax.mail.Authenticator() {
+          protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(
+              EmailService.USER,
+              EmailService.PASS
+            );
+          }
         }
-      }
-    );
-    String msg = "Fail to send Email";
+      );
+  }
+
+  String sendMail(String text) {
+    String status = "Fail to send Email";
 
     try {
       // Create a default MimeMessage object.
-      MimeMessage message = new MimeMessage(session);
+      MimeMessage message = new MimeMessage(this.sesh);
 
       // Set From: header field of the header.
-      message.setFrom(new InternetAddress(user));
+      message.setFrom(new InternetAddress(EmailService.USER));
 
       // Set To: header field of the header.
       message.addRecipient(
@@ -49,21 +55,21 @@ public class EmailService {
       );
 
       // Set Subject: header field
-      message.setSubject("This is the Subject Line!");
+      message.setSubject("Sending reminder");
 
       // Send the actual HTML message, as big as you like
       message.setContent("<h1>" + text + "</h1>", "text/html");
 
       // Send message
-      Transport transport = session.getTransport();
+      Transport transport = this.sesh.getTransport();
       transport.connect();
       Transport.send(message);
       transport.close();
 
-      msg = "Sent message successfully....";
+      status = "Sent message successfully....";
     } catch (MessagingException mex) {
       mex.printStackTrace();
     }
-    return msg;
+    return status;
   }
 }
