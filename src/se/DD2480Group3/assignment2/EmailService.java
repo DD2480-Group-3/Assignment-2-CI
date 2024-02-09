@@ -6,12 +6,10 @@ import javax.mail.internet.*;
 public class EmailService {
 
   private String to;
-  private String from;
   private String host;
 
-  public EmailService(String to, String from) {
+  public EmailService(String to) {
     this.to = to;
-    this.from = from;
     this.host = "smtp.gmail.com";
   }
 
@@ -42,7 +40,7 @@ public class EmailService {
       MimeMessage message = new MimeMessage(session);
 
       // Set From: header field of the header.
-      message.setFrom(new InternetAddress(this.from));
+      message.setFrom(new InternetAddress(user));
 
       // Set To: header field of the header.
       message.addRecipient(
@@ -61,7 +59,6 @@ public class EmailService {
       transport.connect();
       Transport.send(message);
       transport.close();
-      // Transport.send(message);
 
       msg = "Sent message successfully....";
     } catch (MessagingException mex) {

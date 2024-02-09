@@ -50,7 +50,7 @@ dependencies {
 
 application {
     /* to compile and run */ 
-   mainClassName = 'Main' 
+   mainClassName = 'ContinuousIntegrationServer' 
 }
 
 

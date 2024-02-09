@@ -55,16 +55,11 @@ public class ContinuousIntegrationServer extends AbstractHandler {
   // used to start the CI server in command line
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
+    EmailService email = new EmailService("testemail1232456789@gmail.com");
+    System.out.println(email.sendMail("Test Email"));
     server.setHandler(new ContinuousIntegrationServer());
     server.start();
     server.join();
-    // System.out.println("main function");
-    // EmailService email = new EmailService(
-    //   "wenjunjie14@gmail.com",
-    //   "wenjunjie14@gmail.com",
-    //   "localhost"
-    // );
-    // System.out.println(email.sendMail("Test Email"));
   }
 
   /* Source : https://mkyong.com/java/how-to-execute-shell-command-from-java/ */
