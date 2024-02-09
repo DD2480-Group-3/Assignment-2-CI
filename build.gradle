@@ -36,8 +36,10 @@ dependencies {
 //    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 //    testRunTimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     /* Servlet dependencies */
-      implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
-      compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
+    // SSH support for JGit
+    implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r'
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 application {
