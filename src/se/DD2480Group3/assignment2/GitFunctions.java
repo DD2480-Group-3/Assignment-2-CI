@@ -13,6 +13,11 @@ public class GitFunctions {
         this.filePath = filePath;
     }
 
+    /**
+     * Tries to clon Github repository into specific file path and
+     * catches errors if unsuccessful.
+     * @return boolean indicicating if cloning of repo was successful
+     */
     public boolean cloneRepo(){
         try{
             Git.cloneRepository().setURI(this.repo).setDirectory(new File(this.filePath)).call();
