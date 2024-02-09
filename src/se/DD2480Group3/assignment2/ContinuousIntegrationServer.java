@@ -10,6 +10,8 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
+// import src.se.DD2480Group3.assignment2.EmailService;
+
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
  See the Jetty documentation for API documentation of those classes.
@@ -56,6 +58,13 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     server.setHandler(new ContinuousIntegrationServer());
     server.start();
     server.join();
+    // System.out.println("main function");
+    // EmailService email = new EmailService(
+    //   "wenjunjie14@gmail.com",
+    //   "wenjunjie14@gmail.com",
+    //   "localhost"
+    // );
+    // System.out.println(email.sendMail("Test Email"));
   }
 
   /* Source : https://mkyong.com/java/how-to-execute-shell-command-from-java/ */

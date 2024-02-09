@@ -9,16 +9,33 @@ public class EmailService {
   private String from;
   private String host;
 
-  public EmailService(String to, String from, String host) {
+  public EmailService(String to, String from) {
     this.to = to;
     this.from = from;
-    this.host = host;
+    this.host = "smtp.gmail.com";
   }
 
-  String sendMail() {
+  String sendMail(String text) {
     Properties properties = System.getProperties();
+    final String user = "testemail1232456789@gmail.com";
+    final String pass = "ttni qdwf mdgc rdyq";
+
+    properties.put("mail.smtp.starttls.enable", "true");
+
     properties.setProperty("mail.smtp.host", this.host);
-    Session session = Session.getDefaultInstance(properties);
+    properties.put("mail.smtp.port", "587");
+    properties.put("mail.smtp.auth", "true");
+    properties.put("mail.debug", "true");
+
+    Session session = Session.getDefaultInstance(
+      properties,
+      new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication(user, pass);
+        }
+      }
+    );
+    String msg = "Fail to send Email";
 
     try {
       // Create a default MimeMessage object.
@@ -37,14 +54,19 @@ public class EmailService {
       message.setSubject("This is the Subject Line!");
 
       // Send the actual HTML message, as big as you like
-      message.setContent("<h1>This is actual message</h1>", "text/html");
+      message.setContent("<h1>" + text + "</h1>", "text/html");
 
       // Send message
+      Transport transport = session.getTransport();
+      transport.connect();
       Transport.send(message);
+      transport.close();
+      // Transport.send(message);
 
-      return "Sent message successfully....";
+      msg = "Sent message successfully....";
     } catch (MessagingException mex) {
       mex.printStackTrace();
     }
+    return msg;
   }
 }
