@@ -45,13 +45,9 @@ dependencies {
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'javax.mail:mailapi:1.4.3-rc1'
     implementation 'javax.mail:mail:1.4.7'
-
-}   
-
-    implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
     // SSH support for JGit
     implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r'
-    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'org.json:json:20210307'
 }
 
 application {
