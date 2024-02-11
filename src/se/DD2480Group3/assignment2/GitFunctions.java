@@ -2,15 +2,20 @@
 import java.io.File;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 public class GitFunctions {
 
     private String repo;
     private String filePath;
+    private String username;
+    private String token;
 
-    public GitFunctions(String repo, String filePath) {
+    public GitFunctions(String repo, String filePath, String username, String token) {
         this.repo = repo;
         this.filePath = filePath;
+        this.username = username;
+        this.token = token;
     }
 
     /**
@@ -20,7 +25,11 @@ public class GitFunctions {
      */
     public boolean cloneRepo(){
         try{
-            Git.cloneRepository().setURI(this.repo).setDirectory(new File(this.filePath)).call();
+            Git.cloneRepository()
+            .setURI(this.repo).
+            setDirectory(new File(this.filePath))
+            .setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.username, this.token))
+            .call();
             return true;
         }
         catch(Exception e){
