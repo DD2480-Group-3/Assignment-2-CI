@@ -14,7 +14,10 @@ group 'se.DD2480Group3'
 version '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()    
+
+    mavenCentral()  
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }  
+
 }
 
 sourceSets{
@@ -24,18 +27,27 @@ sourceSets{
         }
     }
     /* uncomment if you have junit set up*/
- //   test{
- //       java {
- //           srcDirs = ['test']
- //       }
- //   }
+
+   test{
+       java {
+           srcDirs = ['test/se/DD2480Group3/assignment2']
+       }
+   }
 }
 
 dependencies {
-    /* uncomment if you have junit set up*/
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-//    testRunTimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+   testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
     /* Servlet dependencies */
+    implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
+    implementation 'com.sun.mail:mailapi:1.6.7'
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'javax.mail:mailapi:1.4.3-rc1'
+    implementation 'javax.mail:mail:1.4.7'
+
+}   
+
     implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
     // SSH support for JGit
     implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r'
@@ -49,11 +61,12 @@ application {
 
 
 /* uncomment if you have junit set up*/
-//test {
-//    useJUnitPlatform()
-//    testLogging{
-//        events "passed", "skipped", "failed"
-//    }
+test {
 
-//}
+   useJUnitPlatform()
+   testLogging{
+       events "passed", "skipped", "failed"
+   }
+
+}
 
