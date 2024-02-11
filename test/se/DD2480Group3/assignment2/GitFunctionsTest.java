@@ -1,5 +1,7 @@
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import org.json.JSONObject;
@@ -8,7 +10,7 @@ import org.json.JSONObject;
 public class GitFunctionsTest {
     
     @Test
-    public void cloneTest(){
+    public void cloneTest_0(){
 
         String repo = "https://github.com/DD2480-Group-3/Assignment-2-CI.git";
         String userHome = System.getProperty("user.home");
@@ -29,5 +31,22 @@ public class GitFunctionsTest {
         
         GitFunctions git = new GitFunctions(repo, filePath, username, token);
         assertTrue(git.cloneRepo());
+    }
+
+    /**
+     * Testing the cloneTest function in GitFunctions to make sure that it
+     * returns false when the repository, username and token given are incorrect
+     * and cloning fails.
+     */
+    @Test
+    public void cloneTest_1(){
+        String repo = "https://github.com";
+        String userHome = System.getProperty("user.home");
+        String filePath = userHome + File.separator + "CIRepository";
+        String username = "";
+        String token = "";
+        
+        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        assertFalse(git.cloneRepo());
     }
 }
