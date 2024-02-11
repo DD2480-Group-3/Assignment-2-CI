@@ -19,21 +19,21 @@ public class GitFunctions {
     }
 
     /**
-     * Tries to clon Github repository into specific file path and
+     * Tries to clone Github repository into specific file path and
      * catches errors if unsuccessful.
      * @return boolean indicicating if cloning of repo was successful
      */
     public boolean cloneRepo(){
         try{
             Git.cloneRepository()
-            .setURI(this.repo).
-            setDirectory(new File(this.filePath))
+            .setURI(this.repo)
+            .setDirectory(new File(this.filePath))
             .setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.username, this.token))
             .call();
             return true;
         }
         catch(Exception e){
-            System.err.println("Error cloning repository" + e.getMessage());
+            System.err.println("Error cloning repository " + e.getMessage());
         }
         return false;
     }
