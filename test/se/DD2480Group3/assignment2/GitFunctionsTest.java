@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 public class GitFunctionsTest {
     
+    /**
+     * Tests the cloneRepo function in GitFunctions to see that it returns
+     * true when the given the correct repository, username, and token which
+     * results in a correct cloning of the repository.
+     */
     @Test
     public void cloneTest_0(){
 
@@ -34,7 +39,7 @@ public class GitFunctionsTest {
     }
 
     /**
-     * Testing the cloneTest function in GitFunctions to make sure that it
+     * Tests the cloneRepo function in GitFunctions to make sure that it
      * returns false when the repository, username and token given are incorrect
      * and cloning fails.
      */
