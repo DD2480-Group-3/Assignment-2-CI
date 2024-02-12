@@ -1,4 +1,4 @@
-
+package se.DD2480Group3.assignment2;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

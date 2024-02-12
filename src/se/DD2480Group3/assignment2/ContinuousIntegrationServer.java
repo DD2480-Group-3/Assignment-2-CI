@@ -1,5 +1,7 @@
+package se.DD2480Group3.assignment2; 
+
 //for process handling
-import java.io.BufferedReader;
+import java.io.BufferedReader;  
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.InterruptedException;

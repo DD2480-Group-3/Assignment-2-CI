@@ -1,3 +1,5 @@
+package se.DD2480Group3.assignment2;
+
 import java.util.*;
 import javax.activation.*;
 import javax.mail.*;
