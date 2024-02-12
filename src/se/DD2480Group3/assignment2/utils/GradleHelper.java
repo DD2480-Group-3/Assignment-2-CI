@@ -1,11 +1,11 @@
-package utils;
+package se.DD2480Group3.assignment2.utils;
 
 import org.gradle.tooling.GradleConnectionException;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProgressEvent;
 import org.gradle.tooling.ProgressListener;
 import org.gradle.tooling.ProjectConnection;
-import org.gradle.tooling.ResultHandler;
+import org.gradle.tooling.ResultHandler; 
 import java.io.File;
 
 
@@ -51,7 +51,6 @@ public class GradleHelper{
             @Override
             public void onComplete(Void result) {
                 System.out.println("-----------Build Completed Tests Are Successful------------");
- 
             }
         });
 

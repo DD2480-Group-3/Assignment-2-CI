@@ -23,14 +23,14 @@ repositories {
 sourceSets{
     main {
         java {
-            srcDirs = ['src/se/DD2480Group3/assignment2']
+            srcDirs = ['src']
         }
     }
     /* uncomment if you have junit set up*/
 
    test{
        java {
-           srcDirs = ['test/se/DD2480Group3/assignment2']
+           srcDirs = ['test']
        }
    }
 }
