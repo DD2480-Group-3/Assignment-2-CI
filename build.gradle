@@ -44,12 +44,13 @@ dependencies {
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'javax.mail:mailapi:1.4.3-rc1'
     implementation 'javax.mail:mail:1.4.7'
-
+    // SSH support for JGit
+    implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r'
+    implementation 'org.json:json:20210307'
     implementation "org.gradle:gradle-tooling-api:8.6"
     runtimeOnly 'org.slf4j:slf4j-simple:1.7.10'
 
-}   
-
+}
 
 application {
     /* to compile and run */ 
