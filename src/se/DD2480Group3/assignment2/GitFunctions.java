@@ -11,6 +11,13 @@ public class GitFunctions {
     private String username;
     private String token;
 
+    /**
+     * Initializes a new instance of GitFunctions
+     * @param repo      String containing the HTTPS link to the repo to be cloned
+     * @param filePath  String defining the path to locate the repo locally
+     * @param username  String containing a github username
+     * @param token     String containing a github token
+     */
     public GitFunctions(String repo, String filePath, String username, String token) {
         this.repo = repo;
         this.filePath = filePath;
