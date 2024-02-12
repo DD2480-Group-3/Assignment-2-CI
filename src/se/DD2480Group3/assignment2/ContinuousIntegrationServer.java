@@ -114,4 +114,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         return new JSONObject(builder.toString());
     }
 
+    /*
+     *  Returns the name of the branch which triggered the webhook.
+     * */
+    private String getBranchName(JSONObject payload){
+        String ref = payload.getString("ref");
+        return ref.replace("refs/heads/","");
+    }
+
 }
