@@ -2,7 +2,11 @@
 
 ## How to run :
 
-Create a json file <em>Secret.json</em> which should have "github_username" : "youremail@mail.com", "github_token" : "tokenstring".
+Create a json file <em>Secret.json</em> which should have :
+{
+"github_username" : "youremail@mail.com",
+"github_token" : "tokenstring"
+}
 
 ### To build :
 
@@ -33,13 +37,13 @@ The Continuous Intergration server that we created is used in conjunction to Git
 
 ## Contributions
 
-| Name   | Contribution |
-| ------ | ------------ |
-| Kalle  |              |
-| Linus  |              |
-| Martin |              |
-| Burcu  |              |
-| JJ     |              |
+| Name   | Contribution                                           |
+| ------ | ------------------------------------------------------ |
+| Kalle  |                                                        |
+| Linus  |                                                        |
+| Martin |                                                        |
+| Burcu  |                                                        |
+| JJ     | Wrote the Email Service with Javadocs and other issues |
 
 ## Way of working
 
