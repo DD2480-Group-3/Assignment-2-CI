@@ -122,4 +122,10 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         return ref.replace("refs/heads/","");
     }
 
+    /*
+     *  Returns the Http Clone url for the repo.
+     * */
+    private String getRepoHttpUrl(JSONObject payload) {
+        return payload.getJSONObject("repository").getString("clone_url");
+    }
 }
