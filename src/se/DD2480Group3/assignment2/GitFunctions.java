@@ -24,6 +24,13 @@ public class GitFunctions {
      * @return boolean indicicating if cloning of repo was successful
      */
     public boolean cloneRepo(){
+
+        File folder = new File(this.filePath);
+
+        if (folder.exists()){
+            folder.delete();
+        }
+
         try{
             Git.cloneRepository()
             .setURI(this.repo)
