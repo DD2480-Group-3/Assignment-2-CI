@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
+import java.nio.file.Files;
+
 import org.json.JSONObject;
 
 
@@ -19,7 +21,7 @@ public class GitFunctionsTest {
 
         String repo = "https://github.com/DD2480-Group-3/Assignment-2-CI.git";
         String userHome = System.getProperty("user.home");
-        String filePath = userHome + File.separator + "CIRepository";
+        String filePath = userHome + File.separator + "testRepo";
         String secretPath = "Secret.json";
         String username = "";
         String token = "";
@@ -47,7 +49,7 @@ public class GitFunctionsTest {
     public void cloneTest_1(){
         String repo = "https://github.com";
         String userHome = System.getProperty("user.home");
-        String filePath = userHome + File.separator + "CIRepository";
+        String filePath = userHome + File.separator + "testRepo";
         String username = "";
         String token = "";
         
