@@ -3,27 +3,35 @@
 ## How to run :
 
 Create a json file <em>Secret.json</em> which should have :
+
+````json
 {
 "github_username" : "youremail@mail.com",
 "github_token" : "tokenstring"
-}
+}```
 
 ### To build :
 
-```
+````
+
 gradle build
+
 ```
 
 ### To test :
 
 ```
+
 gradle test
+
 ```
 
 ### To start the server :
 
 ```
+
 gradle run
+
 ```
 
 ### We configure our Github repository:
@@ -55,3 +63,4 @@ The Continuous Intergration server that we created is used in conjunction to Git
 | <mark>In Place</mark> | The practice was adopted by all our team members and we worked well together to implement the deliverables. We do not hesistate to voice out our ideas if we feel that something could be improved. |
 
 We see ourselves being in the Essence level <em>In Place</em>, as we have adopted the tools and practices as a team and everyone has access to them. During our first meeting we decdided not to use a more complicated workflow like CI, since all members were relatively new to using git. We instead kept to the basics and focused on learning the core features. For our next project we plan to have an initial discussion to implement a clearer/stricter way of working to further improve and focus more on feedback on the way of working to reach the next Essence level (<em>In Use</em>).
+```
