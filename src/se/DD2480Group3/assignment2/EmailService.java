@@ -5,6 +5,9 @@ import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * Class to help send email notification to the address given
+ */
 public class EmailService {
 
   private String to;
