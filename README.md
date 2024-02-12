@@ -8,7 +8,8 @@ Create a json file <em>Secret.json</em> which should have :
 {
 "github_username" : "youremail@mail.com",
 "github_token" : "tokenstring"
-}```
+}
+```
 
 ### To build :
 
