@@ -17,6 +17,7 @@ gradle-app.setting
 # Eclipse Gradle plugin generated files
 # Eclipse Core
 .project
+
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
@@ -28,3 +29,6 @@ node_modules
 
 #Ignore Secret
 Secret.json
+
+#Ignore repo built
+repo
