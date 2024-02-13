@@ -28,4 +28,10 @@ class WebhookHandler {
         }
         return new JSONObject(builder.toString());
     }
+
+    public String getBranchName(){
+        String ref = this.payload.getString("ref");
+        return ref.replace("refs/heads/","");
+    }
+
 }
