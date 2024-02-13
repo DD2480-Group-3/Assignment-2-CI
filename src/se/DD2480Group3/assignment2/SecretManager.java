@@ -24,8 +24,7 @@ public class SecretManager {
     public JSONObject readCredentials() throws Exception{
         String content = new String(Files.readAllBytes(Paths.get(this.filePath)));
 
-        JSONObject json = new JSONObject(content);
+        return new JSONObject(content);
 
-        return json;
     }
 }
