@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONObject;
+
+import se.DD2480Group3.assignment2.utils.GradleHelper;
 
 //import src.se.DD2480Group3.assignment2.EmailService;
 
@@ -41,10 +44,50 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     System.out.println("Given route: " + target);
 
     WebhookHandler handler = new WebhookHandler(request);
-    
-        System.out.println(handler.getBranchName());
-        System.out.println(handler.getRepoSshUrl());
-        System.out.println(handler.getRepoHttpUrl());
+        
+        //Cloning
+        String repo = handler.getRepoHttpUrl();
+        String filePath = "repos/" + handler.getRepoName();
+
+        String secretPath = "Secret.json";
+        String username = "";
+        String token = "";
+
+        SecretManager secret = new SecretManager(secretPath);
+
+        try{
+            JSONObject json = secret.readCredentials();
+            username = json.getString("github_username");
+            token = json.getString("github_token");
+        }catch (Exception e){
+
+        }
+
+
+        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        git.cloneRepo();  
+
+        handler.createGradleSettings();
+        //end of cloning
+  
+        //Building
+            
+        GradleHelper helper = new GradleHelper(filePath);
+        
+        EmailService email = new EmailService("karlspetsblomberg@gmail.com");
+
+
+        GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener(){
+            @Override
+            public void onBuildFinish(String output, boolean status){
+                email.sendMail(output);
+            }
+
+        };
+
+        helper.build(listener);
+
+        //End of Building
   }
 
   /**
