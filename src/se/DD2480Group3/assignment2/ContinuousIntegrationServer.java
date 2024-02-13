@@ -64,7 +64,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         }
 
 
-        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, handler.getBranchName());
         git.cloneRepo();  
 
         handler.createGradleSettings();

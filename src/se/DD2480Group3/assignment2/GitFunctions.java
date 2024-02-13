@@ -12,6 +12,7 @@ public class GitFunctions {
     private String filePath;
     private String username;
     private String token;
+    private String branch;
 
     /**
      * Initializes a new instance of GitFunctions
@@ -20,11 +21,12 @@ public class GitFunctions {
      * @param username  String containing a github username
      * @param token     String containing a github token
      */
-    public GitFunctions(String repo, String filePath, String username, String token) {
+    public GitFunctions(String repo, String filePath, String username, String token, String branch) {
         this.repo = repo;
         this.filePath = filePath;
         this.username = username;
         this.token = token;
+        this.branch = branch;
     }
 
     /**
@@ -44,6 +46,7 @@ public class GitFunctions {
             Git.cloneRepository()
             .setURI(this.repo)
             .setDirectory(new File(this.filePath))
+            .setBranch(this.branch)
             .setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.username, this.token))
             .call();
             return true;
