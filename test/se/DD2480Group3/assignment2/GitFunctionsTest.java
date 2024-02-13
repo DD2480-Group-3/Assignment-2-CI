@@ -1,12 +1,12 @@
 package se.DD2480Group3.assignment2;
 
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
-import java.nio.file.Files;
 
 import org.json.JSONObject; 
 
@@ -19,6 +19,7 @@ public class GitFunctionsTest {
      * results in a correct cloning of the repository.
      */
     @Test
+    @DisplayName("Succesful Clone Test")
     public void cloneTest_0(){
 
         String repo = "https://github.com/DD2480-Group-3/Assignment-2-CI.git";
@@ -36,7 +37,7 @@ public class GitFunctionsTest {
         }catch (Exception e){
 
         }
-        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, "main");
         assertTrue(git.cloneRepo());
     }
 
@@ -46,6 +47,7 @@ public class GitFunctionsTest {
      * and cloning fails.
      */
     @Test
+    @DisplayName("Failed Clone Test")
     public void cloneTest_1(){
         String repo = "https://github.com";
         String userHome = System.getProperty("user.home");
@@ -53,7 +55,7 @@ public class GitFunctionsTest {
         String username = "";
         String token = "";
         
-        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, "main");
         assertFalse(git.cloneRepo());
     }
 }

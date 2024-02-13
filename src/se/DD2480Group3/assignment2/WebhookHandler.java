@@ -20,10 +20,10 @@ class WebhookHandler {
         this.payload = createPayload();
     }
 
-    /*
+    /**
      * Returns the payload as a json object of a webhook that is sent with
      * Content type: application/json
-     * */
+     */
     private JSONObject createPayload(){
         StringBuilder builder = new StringBuilder();
         try {
@@ -38,30 +38,29 @@ class WebhookHandler {
         return new JSONObject(builder.toString());
     }
 
-    /*
+    /**
      *  Returns the name of the branch which triggered the webhook.
-     * */
+     */
     public String getBranchName(){
         String ref = this.payload.getString("ref");
         return ref.replace("refs/heads/","");
     }
 
-    /*
+    /**
      *  Returns the Http Clone url for the repo.
-     * */
+     */
     public String getRepoHttpUrl() {
         return this.payload.getJSONObject("repository").getString("clone_url");
     }
 
-    /*
+    /**
      *  Returns the ssh clone url for the repo.
-     * */
+     */
     public String getRepoSshUrl() {
         return this.payload.getJSONObject("repository").getString("ssh_url");
     }
 
     /**
-     *
      * @return Name of the target repository  
      */
     public String getRepoName() {

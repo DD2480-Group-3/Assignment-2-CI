@@ -1,6 +1,5 @@
 package se.DD2480Group3.assignment2; 
 
-//for process handling
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONObject;
 
-//import src.se.DD2480Group3.assignment2.EmailService;
+import se.DD2480Group3.assignment2.utils.GradleHelper;
+import se.DD2480Group3.assignment2.utils.EmailService;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -34,6 +35,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     HttpServletRequest request,
     HttpServletResponse response
   ) throws IOException, ServletException {
+
     response.setContentType("text/html;charset=utf-8");
     response.setStatus(HttpServletResponse.SC_OK);
     baseRequest.setHandled(true);
@@ -41,10 +43,49 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     System.out.println("Given route: " + target);
 
     WebhookHandler handler = new WebhookHandler(request);
-    
-        System.out.println(handler.getBranchName());
-        System.out.println(handler.getRepoSshUrl());
-        System.out.println(handler.getRepoHttpUrl());
+        
+        //Cloning
+        String repo = handler.getRepoHttpUrl();
+        String filePath = "repos/" + handler.getRepoName();
+
+        String secretPath = "Secret.json";
+        String username = "";
+        String token = "";
+
+        SecretManager secret = new SecretManager(secretPath);
+
+        try{
+            JSONObject json = secret.readCredentials();
+            username = json.getString("github_username");
+            token = json.getString("github_token");
+        }catch (Exception e){
+
+        }
+
+
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, handler.getBranchName());
+        git.cloneRepo();  
+
+        handler.createGradleSettings();
+        //end of cloning
+  
+        //Building
+            
+        GradleHelper helper = new GradleHelper(filePath);
+        
+        EmailService email = new EmailService("karlspetsblomberg@gmail.com");
+
+        GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener(){
+            @Override
+            public void onBuildFinish(String output, boolean status){
+                email.sendMail(output);
+            }
+
+        };
+
+        helper.build(listener);
+
+        //End of Building
   }
 
   /**
@@ -54,9 +95,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
    */
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
-    // EmailService email = new EmailService("testemail1232456789@gmail.com");
-    // System.out.println((email.sendMail("IN MAIN")));
-
     server.setHandler(new ContinuousIntegrationServer());
     server.start();
     server.join();
