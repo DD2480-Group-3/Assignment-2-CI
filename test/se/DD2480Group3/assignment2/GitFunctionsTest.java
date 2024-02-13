@@ -36,7 +36,7 @@ public class GitFunctionsTest {
         }catch (Exception e){
 
         }
-        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, "main");
         assertTrue(git.cloneRepo());
     }
 
@@ -53,7 +53,7 @@ public class GitFunctionsTest {
         String username = "";
         String token = "";
         
-        GitFunctions git = new GitFunctions(repo, filePath, username, token);
+        GitFunctions git = new GitFunctions(repo, filePath, username, token, "main");
         assertFalse(git.cloneRepo());
     }
 }
