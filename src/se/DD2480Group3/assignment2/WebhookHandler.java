@@ -14,7 +14,7 @@ class WebhookHandler {
     
     HttpServletRequest request;
     JSONObject payload;
-
+    
     public WebhookHandler(HttpServletRequest request){
         this.request = request;
         this.payload = createPayload();

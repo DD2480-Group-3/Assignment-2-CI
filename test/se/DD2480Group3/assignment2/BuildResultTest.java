@@ -7,11 +7,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class BuildResultTest {
     
+    /**
+     * Tests the BuildResult class to put the build result message as a string.
+     */
     @Test
+    @DisplayName("Build Result Test as String")
     public void testAsStringResults(){
         String str = "This is a test String";
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -20,7 +25,11 @@ public class BuildResultTest {
         assertEquals(result.asString(), str);
     }
 
+    /**
+     * Tests the BuildResult class to put the build result message in a file.
+     */
     @Test
+    @DisplayName("Build Result Test as File")
     public void testAsFile(){
         String str = "This is a test String to put in a file";
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
