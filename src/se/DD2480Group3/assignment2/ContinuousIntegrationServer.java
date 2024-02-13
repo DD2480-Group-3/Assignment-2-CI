@@ -75,12 +75,11 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         
         EmailService email = new EmailService("karlspetsblomberg@gmail.com");
 
-        GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener(){
-            @Override
-            public void onBuildFinish(String output, boolean status){
-                email.sendMail(output);
-            }
-
+        GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener() {
+          @Override
+          public void onBuildFinish(BuildResult result) {
+            email.sendMail(result.asString());
+          }
         };
 
         helper.build(listener);
