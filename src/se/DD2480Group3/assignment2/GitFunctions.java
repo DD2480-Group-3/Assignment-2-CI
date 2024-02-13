@@ -21,13 +21,6 @@ public class GitFunctions {
      * @param username  String containing a github username
      * @param token     String containing a github token
      */
-    public GitFunctions(String repo, String filePath, String username, String token) {
-        this.repo = repo;
-        this.filePath = filePath;
-        this.username = username;
-        this.token = token;
-    }
-
     public GitFunctions(String repo, String filePath, String username, String token, String branch) {
         this.repo = repo;
         this.filePath = filePath;
