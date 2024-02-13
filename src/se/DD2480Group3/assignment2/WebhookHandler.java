@@ -41,4 +41,11 @@ class WebhookHandler {
         return this.payload.getJSONObject("repository").getString("clone_url");
     }
 
+    /*
+     *  Returns the ssh clone url for the repo.
+     * */
+    public String getRepoSshUrl() {
+        return this.payload.getJSONObject("repository").getString("ssh_url");
+    }
+
 }
