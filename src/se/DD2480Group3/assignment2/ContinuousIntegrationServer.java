@@ -125,13 +125,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     }
 
     /*
-     *  Returns the Http Clone url for the repo.
-     * */
-    private String getRepoHttpUrl(JSONObject payload) {
-        return payload.getJSONObject("repository").getString("clone_url");
-    }
-
-    /*
      *  Returns the ssh clone url for the repo.
      * */
     private String getRepoSshUrl(JSONObject payload) {

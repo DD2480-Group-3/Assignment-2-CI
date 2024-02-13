@@ -34,4 +34,11 @@ class WebhookHandler {
         return ref.replace("refs/heads/","");
     }
 
+    /*
+     *  Returns the Http Clone url for the repo.
+     * */
+    public String getRepoHttpUrl() {
+        return this.payload.getJSONObject("repository").getString("clone_url");
+    }
+
 }
