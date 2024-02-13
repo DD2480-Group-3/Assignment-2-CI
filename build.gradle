@@ -41,6 +41,7 @@ dependencies {
     /* Servlet dependencies */
     implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
     implementation 'com.sun.mail:mailapi:1.6.7'
+    implementation 'org.json:json:20240205'
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'javax.mail:mailapi:1.4.3-rc1'
     implementation 'javax.mail:mail:1.4.7'
