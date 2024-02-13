@@ -34,8 +34,16 @@ public class BuildResult {
      * @return true if message is successfully written to the file, false otherwise.
      */
     public boolean asFile(String outputFilePath){
+        int index = outputFilePath.lastIndexOf("/");
+        if(index == -1){ 
+            index = outputFilePath.lastIndexOf("\\");
+        }
+        if(index != -1){
+            new File(outputFilePath.substring(0, index)).mkdirs();
+        }
+ 
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFilePath));
+            FileOutputStream fileOutputStream = new FileOutputStream(outputFilePath);
             outputStream.writeTo(fileOutputStream);
         }catch(Exception e){
             return false;
