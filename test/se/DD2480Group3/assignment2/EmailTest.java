@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import se.DD2480Group3.assignment2.utils.EmailService;
 public class EmailTest {
 
+  /**
+   * Tests the send mail function in EmailService.java with a valid mail and text.
+   */
   @Test
   @DisplayName("Email Send Test")
   public void testEmailCredential() {
