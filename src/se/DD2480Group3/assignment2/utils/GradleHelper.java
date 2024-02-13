@@ -8,6 +8,8 @@ import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 import org.gradle.tooling.ResultHandler;
 
+import se.DD2480Group3.assignment2.BuildResult;
+
 
 /**
  * A utility class for building Gradle Projects.
@@ -35,30 +37,19 @@ public class GradleHelper{
     public void build(OnBuildFinishListener listener){
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
 
-        StringBuilder outputBuilder = new StringBuilder("----------- Starting to build ------------");
-
         connection.newBuild()
         .setStandardOutput(outputStream)
         .forTasks("build").run(new ResultHandler<Void>() {
             @Override
             public void onFailure(GradleConnectionException failure) {
-                outputBuilder
-                    .append("\n")
-                    .append(outputStream.toString())
-                    .append("\n")
-                    .append("----------- Build Failed ------------");
-                listener.onBuildFinish(outputBuilder.toString(), false);
+                
+                listener.onBuildFinish(new BuildResult(outputStream, false));
             }
 
             @Override
             public void onComplete(Void result) {
-                outputBuilder
-                    .append("\n")
-                    .append(outputStream.toString())
-                    .append("\n")
-                    .append("----------- Build Completed Tests Are Successful ------------");
 
-                listener.onBuildFinish(outputBuilder.toString(), true);
+                listener.onBuildFinish(new BuildResult(outputStream, true));
             }
         });
 
@@ -85,7 +76,7 @@ public class GradleHelper{
          * @param buildLog The output of the build and tests as a String
          * @param buildSuccesfull True if the build and tests were successful, false otherwise
          */
-        public void onBuildFinish(String buildLog, boolean buildSuccesfull);
+        public void onBuildFinish(BuildResult result);
         
     }
 }
