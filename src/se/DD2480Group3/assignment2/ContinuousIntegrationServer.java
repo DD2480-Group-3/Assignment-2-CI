@@ -34,6 +34,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
     System.out.println("Given route: " + target);
 
+    WebhookHandler handler = new WebhookHandler(request);
+    
+        System.out.println(handler.getBranchName());
+        System.out.println(handler.getRepoSshUrl());
+        System.out.println(handler.getRepoHttpUrl());
+
     if (target.equalsIgnoreCase("/compile")) {
       execute("/home/karl/Documents/GitHub/Assignment-2-CI/scripts/compile.sh");
       /*Send response*/
@@ -100,28 +106,5 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     }
   }
 
-    /*
-     * Returns the payload as a json object of a webhook that is sent with
-     * Content type: application/json
-     * */
-    private JSONObject parseWebhook(HttpServletRequest request) throws JSONException, IOException {
-        BufferedReader buf = request.getReader();
-        StringBuilder builder = new StringBuilder();
-        
-        String line;
-        while((line = buf.readLine()) != null) {
-            builder.append(line);
-        }
-        
-        return new JSONObject(builder.toString());
-    }
-
-    /*
-     *  Returns the name of the branch which triggered the webhook.
-     * */
-    private String getBranchName(JSONObject payload){
-        String ref = payload.getString("ref");
-        return ref.replace("refs/heads/","");
-    }
 
 }
