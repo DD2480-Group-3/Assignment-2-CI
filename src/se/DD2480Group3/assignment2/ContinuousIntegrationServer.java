@@ -1,6 +1,9 @@
 package se.DD2480Group3.assignment2; 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,7 +81,9 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener() {
           @Override
           public void onBuildFinish(BuildResult result) {
-            email.sendMail(result.asString());
+            email.sendMail(result.asString()); 
+            String time = LocalDateTime.now().toString().replaceAll(":", "-").substring(0, 19);
+            result.asFile("logs/Build-Log-".concat(time).concat(".log"));  
           }
         };
 
