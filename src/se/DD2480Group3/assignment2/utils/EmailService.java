@@ -1,7 +1,6 @@
-package se.DD2480Group3.assignment2;
+package se.DD2480Group3.assignment2.utils;
 
 import java.util.*;
-import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
@@ -51,12 +50,10 @@ public class EmailService {
   /**
    * Sending the email to the addresss
    * @param text The text you need for the email sent
-   *
-   *
    * @return status of sending email in string : "fail to send email" || "Sent message successfully...."
    */
-  String sendMail(String text) {
-    String status = "Fail to send Email";
+  public boolean sendMail(String text) {
+    boolean status = false;
 
     try {
       // Create a default MimeMessage object.
@@ -83,7 +80,8 @@ public class EmailService {
       Transport.send(message);
       transport.close();
 
-      status = "Sent message successfully....";
+      status = true;
+      
     } catch (MessagingException mex) {
       mex.printStackTrace();
     }

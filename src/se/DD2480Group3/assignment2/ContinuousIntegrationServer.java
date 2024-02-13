@@ -1,6 +1,5 @@
 package se.DD2480Group3.assignment2; 
 
-//for process handling
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +10,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.json.JSONObject;
 
 import se.DD2480Group3.assignment2.utils.GradleHelper;
-
-//import src.se.DD2480Group3.assignment2.EmailService;
+import se.DD2480Group3.assignment2.utils.EmailService;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -37,6 +35,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     HttpServletRequest request,
     HttpServletResponse response
   ) throws IOException, ServletException {
+
     response.setContentType("text/html;charset=utf-8");
     response.setStatus(HttpServletResponse.SC_OK);
     baseRequest.setHandled(true);
@@ -76,7 +75,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         
         EmailService email = new EmailService("karlspetsblomberg@gmail.com");
 
-
         GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener(){
             @Override
             public void onBuildFinish(String output, boolean status){
@@ -97,9 +95,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
    */
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
-    // EmailService email = new EmailService("testemail1232456789@gmail.com");
-    // System.out.println((email.sendMail("IN MAIN")));
-
     server.setHandler(new ContinuousIntegrationServer());
     server.start();
     server.join();

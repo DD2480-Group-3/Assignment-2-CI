@@ -1,19 +1,17 @@
 package se.DD2480Group3.assignment2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
+import se.DD2480Group3.assignment2.utils.EmailService;
 public class EmailTest {
 
   @Test
-  public void testEmailCrediential() {
+  @DisplayName("Email Send Test")
+  public void testEmailCredential() {
     EmailService email = new EmailService("testemail1232456789@gmail.com");
+    boolean status = email.sendMail("Test Mail");
+    assertTrue(status);
   }
 }
