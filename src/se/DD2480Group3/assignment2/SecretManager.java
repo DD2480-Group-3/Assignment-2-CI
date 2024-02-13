@@ -1,3 +1,5 @@
+package se.DD2480Group3.assignment2;
+ 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.json.JSONObject;
