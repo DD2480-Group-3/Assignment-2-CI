@@ -72,7 +72,7 @@ class WebhookHandler {
      * Creates a settings.gradle file for the target project.
      */
     public void createGradleSettings(){
-        String content = "rootProject.name = " + getRepoName();
+        String content = "rootProject.name = '" + getRepoName() + "'";
         try{
             Files.write(Paths.get("repos/" + getRepoName() + "/settings.gradle"),content.getBytes(StandardCharsets.UTF_8),StandardOpenOption.CREATE_NEW);
         }
