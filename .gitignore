@@ -31,4 +31,4 @@ node_modules
 Secret.json
 
 #Ignore repo built
-repo
+repos
