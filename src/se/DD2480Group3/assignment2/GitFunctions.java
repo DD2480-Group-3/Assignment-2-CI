@@ -1,4 +1,5 @@
-
+package se.DD2480Group3.assignment2;
+ 
 import java.io.File;
 
 import org.eclipse.jgit.api.Git;
@@ -6,7 +7,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.util.FileUtils;
 
 public class GitFunctions {
-
+ 
     private String repo;
     private String filePath;
     private String username;

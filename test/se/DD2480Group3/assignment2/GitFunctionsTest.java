@@ -1,3 +1,5 @@
+package se.DD2480Group3.assignment2;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.nio.file.Files;
 
-import org.json.JSONObject;
+import org.json.JSONObject; 
 
 
 public class GitFunctionsTest {
@@ -27,7 +29,6 @@ public class GitFunctionsTest {
         String token = "";
 
         SecretManager secret = new SecretManager(secretPath);
-        
         try{
             JSONObject json = secret.readCredentials();
             username = json.getString("github_username");
@@ -35,7 +36,6 @@ public class GitFunctionsTest {
         }catch (Exception e){
 
         }
-        
         GitFunctions git = new GitFunctions(repo, filePath, username, token);
         assertTrue(git.cloneRepo());
     }
