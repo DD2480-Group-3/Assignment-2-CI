@@ -55,7 +55,7 @@ dependencies {
 
 application {
     /* to compile and run */ 
-   mainClassName = 'ContinuousIntegrationServer' 
+   mainClassName = 'se/DD2480Group3/assignment2/ContinuousIntegrationServer' 
 }
 
 

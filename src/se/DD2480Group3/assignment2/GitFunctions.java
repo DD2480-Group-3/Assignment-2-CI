@@ -3,6 +3,7 @@ import java.io.File;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.util.FileUtils;
 
 public class GitFunctions {
 
@@ -33,9 +34,9 @@ public class GitFunctions {
     public boolean cloneRepo(){
 
         File folder = new File(this.filePath);
-
+        
         if (folder.exists()){
-            folder.delete();
+            deleteDirectory(folder);
         }
 
         try{
@@ -50,5 +51,20 @@ public class GitFunctions {
             System.err.println("Error cloning repository " + e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * Delete a folder/file and all of the folders/files that are inside it
+     * @param file  File to delete
+     */
+    public static void deleteDirectory(File file)
+    {
+        for (File subfile : file.listFiles()) {
+
+            if (subfile.isDirectory()) {
+                deleteDirectory(subfile);
+            }
+            subfile.delete();
+        }
     }
 }
