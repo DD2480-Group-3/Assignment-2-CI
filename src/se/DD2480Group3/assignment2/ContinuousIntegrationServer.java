@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 // import src.se.DD2480Group3.assignment2.EmailService;
 
@@ -31,6 +33,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     baseRequest.setHandled(true);
 
     System.out.println("Given route: " + target);
+
+    WebhookHandler handler = new WebhookHandler(request);
+    
+        System.out.println(handler.getBranchName());
+        System.out.println(handler.getRepoSshUrl());
+        System.out.println(handler.getRepoHttpUrl());
 
     if (target.equalsIgnoreCase("/compile")) {
       execute("/home/karl/Documents/GitHub/Assignment-2-CI/scripts/compile.sh");
@@ -97,4 +105,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
       e.printStackTrace();
     }
   }
+
+
 }
