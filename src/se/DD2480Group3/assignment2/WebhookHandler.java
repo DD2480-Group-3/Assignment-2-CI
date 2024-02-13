@@ -5,6 +5,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.charset.StandardCharsets;
+
 class WebhookHandler {
     
     HttpServletRequest request;
@@ -53,6 +58,27 @@ class WebhookHandler {
      * */
     public String getRepoSshUrl() {
         return this.payload.getJSONObject("repository").getString("ssh_url");
+    }
+
+    /**
+     *
+     * @return Name of the target repository  
+     */
+    public String getRepoName() {
+        return this.payload.getJSONObject("repository").getString("name");
+    }
+
+    /**
+     * Creates a settings.gradle file for the target project.
+     */
+    public void createGradleSettings(){
+        String content = "rootProject.name = '" + getRepoName() + "'";
+        try{
+            Files.write(Paths.get("repos/" + getRepoName() + "/settings.gradle"),content.getBytes(StandardCharsets.UTF_8),StandardOpenOption.CREATE_NEW);
+        }
+        catch(IOException e){
+            System.err.println("settings.gradle already exists.");
+        }
     }
 
 }
