@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 // import src.se.DD2480Group3.assignment2.EmailService;
 
@@ -97,4 +99,42 @@ public class ContinuousIntegrationServer extends AbstractHandler {
       e.printStackTrace();
     }
   }
+
+    /*
+     * Returns the payload as a json object of a webhook that is sent with
+     * Content type: application/json
+     * */
+    private JSONObject parseWebhook(HttpServletRequest request) throws JSONException, IOException {
+        BufferedReader buf = request.getReader();
+        StringBuilder builder = new StringBuilder();
+        
+        String line;
+        while((line = buf.readLine()) != null) {
+            builder.append(line);
+        }
+        
+        return new JSONObject(builder.toString());
+    }
+
+    /*
+     *  Returns the name of the branch which triggered the webhook.
+     * */
+    private String getBranchName(JSONObject payload){
+        String ref = payload.getString("ref");
+        return ref.replace("refs/heads/","");
+    }
+
+    /*
+     *  Returns the Http Clone url for the repo.
+     * */
+    private String getRepoHttpUrl(JSONObject payload) {
+        return payload.getJSONObject("repository").getString("clone_url");
+    }
+
+    /*
+     *  Returns the ssh clone url for the repo.
+     * */
+    private String getRepoSshUrl(JSONObject payload) {
+        return payload.getJSONObject("repository").getString("ssh_url");
+    }
 }
