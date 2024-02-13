@@ -9,7 +9,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-// import src.se.DD2480Group3.assignment2.EmailService;
+//import src.se.DD2480Group3.assignment2.EmailService;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -17,6 +17,17 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 */
 public class ContinuousIntegrationServer extends AbstractHandler {
 
+  
+  /**
+     * Handles HTTP requests.
+     * 
+     * @param target The target of the request.
+     * @param baseRequest The base HTTP request.
+     * @param request The HTTP servlet request.
+     * @param response The HTTP servlet response.
+     * @throws IOException If an I/O error occurs.
+     * @throws ServletException If a servlet exception occurs.
+     */
   public void handle(
     String target,
     Request baseRequest,
@@ -36,7 +47,11 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         System.out.println(handler.getRepoHttpUrl());
   }
 
-  // used to start the CI server in command line
+  /**
+   * Main function that is used to start the CI server in command line
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
     // EmailService email = new EmailService("testemail1232456789@gmail.com");
