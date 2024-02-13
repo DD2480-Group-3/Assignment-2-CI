@@ -75,7 +75,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
     GradleHelper helper = new GradleHelper(filePath);
 
-    EmailService email = new EmailService("karlspetsblomberg@gmail.com");
+    EmailService email = new EmailService(username);
 
     GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener() {
       @Override
