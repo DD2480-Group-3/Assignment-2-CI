@@ -1,8 +1,12 @@
+package se.DD2480Group3.assignment2.utils;
+
 import java.util.*;
-import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * Class to help send email notification to the address given
+ */
 public class EmailService {
 
   private String to;
@@ -11,6 +15,11 @@ public class EmailService {
   private static final String PASS = "ttni qdwf mdgc rdyq";
   private Session sesh;
 
+  /**
+   * Construct an of emailService.
+   * @param to person you are sending the emailService to
+   *
+   */
   public EmailService(String to) {
     this.to = to;
     this.host = "smtp.gmail.com";
@@ -38,8 +47,13 @@ public class EmailService {
       );
   }
 
-  String sendMail(String text) {
-    String status = "Fail to send Email";
+  /**
+   * Sending the email to the addresss
+   * @param text The text you need for the email sent
+   * @return status of sending email in string : "fail to send email" || "Sent message successfully...."
+   */
+  public boolean sendMail(String text) {
+    boolean status = false;
 
     try {
       // Create a default MimeMessage object.
@@ -66,7 +80,8 @@ public class EmailService {
       Transport.send(message);
       transport.close();
 
-      status = "Sent message successfully....";
+      status = true;
+      
     } catch (MessagingException mex) {
       mex.printStackTrace();
     }

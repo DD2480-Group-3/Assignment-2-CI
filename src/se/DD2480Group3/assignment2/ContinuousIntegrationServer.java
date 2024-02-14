@@ -1,16 +1,15 @@
-//for process handling
-import java.io.BufferedReader;
+package se.DD2480Group3.assignment2;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.InterruptedException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-
-// import src.se.DD2480Group3.assignment2.EmailService;
+import org.json.JSONObject;
+import se.DD2480Group3.assignment2.utils.EmailService;
+import se.DD2480Group3.assignment2.utils.GradleHelper;
 
 /** 
  Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -18,6 +17,16 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 */
 public class ContinuousIntegrationServer extends AbstractHandler {
 
+  /**
+   * Handles HTTP requests.
+   *
+   * @param target The target of the request.
+   * @param baseRequest The base HTTP request.
+   * @param request The HTTP servlet request.
+   * @param response The HTTP servlet response.
+   * @throws IOException If an I/O error occurs.
+   * @throws ServletException If a servlet exception occurs.
+   */
   public void handle(
     String target,
     Request baseRequest,
@@ -30,69 +39,66 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
     System.out.println("Given route: " + target);
 
-    if (target.equalsIgnoreCase("/compile")) {
-      execute("/home/karl/Documents/GitHub/Assignment-2-CI/scripts/compile.sh");
-      /*Send response*/
-      response.getWriter().println("Compiling code");
-    } else if (target.equalsIgnoreCase("/run")) {
-      execute("/home/karl/Documents/GitHub/Assignment-2-CI/scripts/run.sh");
-      /*Send response*/
-      response.getWriter().println("Starting application");
-    } else if (target.equalsIgnoreCase("/test")) {
-      execute("/home/karl/Documents/GitHub/Assignment-2-CI/scripts/test.sh");
-      /*Send response*/
-      response.getWriter().println("Running tests");
-    } else {
-      response.getWriter().println("Default route, doing nothing");
-    }
-    // here you do all the continuous integration tasks
-    // for example
-    // 1st clone your repository
-    // 2nd compile the code
+    WebhookHandler handler = new WebhookHandler(request);
 
+    //Cloning
+    String repo = handler.getRepoHttpUrl();
+    String filePath = "repos/" + handler.getRepoName();
+
+    String secretPath = "Secret.json";
+    String username = "";
+    String token = "";
+
+    SecretManager secret = new SecretManager(secretPath);
+
+    try {
+      JSONObject json = secret.readCredentials();
+      username = json.getString("github_username");
+      token = json.getString("github_token");
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+
+    GitFunctions git = new GitFunctions(
+      repo,
+      filePath,
+      username,
+      token,
+      handler.getBranchName()
+    );
+    git.cloneRepo();
+
+    handler.createGradleSettings();
+    //end of cloning
+
+    //Building
+
+    GradleHelper helper = new GradleHelper(filePath);
+
+    EmailService email = new EmailService(username);
+
+    GradleHelper.OnBuildFinishListener listener = new GradleHelper.OnBuildFinishListener() {
+      @Override
+      public void onBuildFinish(BuildResult result) {
+        email.sendMail(result.asString());
+      }
+    };
+
+    helper.build(listener);
+
+    //End of Building
+    response.getWriter().println("OK");
   }
 
-  // used to start the CI server in command line
+  /**
+   * Main function that is used to start the CI server in command line
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
-    // EmailService email = new EmailService("testemail1232456789@gmail.com");
-    // System.out.println((email.sendMail("IN MAIN")));
-
     server.setHandler(new ContinuousIntegrationServer());
     server.start();
     server.join();
-  }
-
-  /* Source : https://mkyong.com/java/how-to-execute-shell-command-from-java/ */
-  private void execute(String filepath) {
-    ProcessBuilder compileScript = new ProcessBuilder();
-    compileScript.command(filepath);
-
-    try {
-      Process process = compileScript.start();
-
-      StringBuilder output = new StringBuilder();
-
-      BufferedReader reader = new BufferedReader(
-        new InputStreamReader(process.getInputStream())
-      );
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        output.append(line + "\n");
-      }
-      //What is exitval?
-      int exitVal = process.waitFor();
-      if (exitVal == 0) {
-        System.out.println("success!");
-        System.out.println(output);
-      } else {
-        //?
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 }

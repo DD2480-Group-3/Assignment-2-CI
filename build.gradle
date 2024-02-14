@@ -23,14 +23,14 @@ repositories {
 sourceSets{
     main {
         java {
-            srcDirs = ['src/se/DD2480Group3/assignment2']
+            srcDirs = ['src']
         }
     }
     /* uncomment if you have junit set up*/
 
    test{
        java {
-           srcDirs = ['test/se/DD2480Group3/assignment2']
+           srcDirs = ['test']
        }
    }
 }
@@ -38,20 +38,24 @@ sourceSets{
 dependencies {
    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-
     /* Servlet dependencies */
     implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
     implementation 'com.sun.mail:mailapi:1.6.7'
+    implementation 'org.json:json:20240205'
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'javax.mail:mailapi:1.4.3-rc1'
     implementation 'javax.mail:mail:1.4.7'
+    // SSH support for JGit
+    implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.4.0.202211300538-r'
+    implementation 'org.json:json:20210307'
+    implementation "org.gradle:gradle-tooling-api:8.6"
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.10'
 
-}   
-
+}
 
 application {
     /* to compile and run */ 
-   mainClassName = 'ContinuousIntegrationServer' 
+   mainClassName = 'se/DD2480Group3/assignment2/ContinuousIntegrationServer' 
 }
 
 
