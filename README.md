@@ -48,10 +48,10 @@ The Continuous Intergration server that we created is used in conjunction to Git
 
 | Name   | Contribution                                           |
 | ------ | ------------------------------------------------------ |
-| Kalle  |                                                        |
-| Linus  |                                                        |
-| Martin |                                                        |
-| Burcu  |                                                        |
+| Kalle  | Worked with webhook handler and the main file          |
+| Linus  | Worked with cloning of the repository                  |
+| Martin | Worked with build results                              |
+| Burcu  | Worked on the gradle helper and javadocs               |
 | JJ     | Wrote the Email Service with Javadocs and other issues |
 
 ## Way of working
