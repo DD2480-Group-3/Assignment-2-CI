@@ -7,7 +7,9 @@ Create a json file <em>Secret.json</em> which should have :
 ```json
 {
   "github_username": "youremail@mail.com",
-  "github_token": "tokenstring"
+  "github_token": "tokenstring",
+  "userEmail": "SenderEmail",
+  "userEmailPass": "Authtoken"
 }
 ```
 
